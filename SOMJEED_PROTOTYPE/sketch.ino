@@ -27,11 +27,29 @@ int state = 1;
 int button_state = 0;
 int change_allow = 0;
 int reset_state = 0;
+int r_color = NULL;
+int g_color = NULL;
+int b_color = NULL;
 /////////////////////////////
 void RGB_BEEP(int r_pin,int g_pin,int b_pin){
-    digitalWrite(r_pin,!digitalRead(r_pin));
-    digitalWrite(g_pin,!digitalRead(g_pin));
-    digitalWrite(b_pin,0);
+    if(r_color == 0){
+      r_color = 200;
+      g_color = 50;
+      b_color = 0;
+    }else{
+      r_color = 0;
+      g_color = 0;
+      b_color = 0;
+    }
+    // if(digitalRead(g_pin) == 0){
+    //   g_color = 200;
+    // }else{
+    //   g_color = 0;
+    // }
+    // Serial.println(analogRead(R1));
+    analogWrite(r_pin,r_color);
+    analogWrite(g_pin,g_color);
+    analogWrite(b_pin,b_color);
 }
 
 void IRAM_ATTR TEST(){
@@ -120,22 +138,12 @@ void IRAM_ATTR MAIN_FUNC(){
   ///////////////////////////
   if(state == 1){
     RGB_BEEP(R1,G1,B1);
-    RGB_BEEP(R2,G2,B2);
-    RGB_BEEP(R3,G3,B3);
-    RGB_BEEP(R4,G4,B4);
-    RGB_BEEP(R5,G5,B5);
   }else if(state == 2){
     RGB_BEEP(R2,G2,B2);
-    RGB_BEEP(R3,G3,B3);
-    RGB_BEEP(R4,G4,B4);
-    RGB_BEEP(R5,G5,B5);
   }else if(state == 3){
     RGB_BEEP(R3,G3,B3);
-    RGB_BEEP(R4,G4,B4);
-    RGB_BEEP(R5,G5,B5);
   }else if(state == 4){
     RGB_BEEP(R4,G4,B4);
-    RGB_BEEP(R5,G5,B5);
   }else if(state == 5){
     RGB_BEEP(R5,G5,B5);
   }
@@ -187,11 +195,12 @@ void setup() {
 void loop() {
   Serial.print("State: ");
   Serial.println(state);
-  Serial.print("Button State: ");
-  Serial.println(button_state);
-  Serial.print("Allow State: ");
-  Serial.println(change_allow);
-  Serial.print("Reset State: ");
-  Serial.println(reset_state);
+  // Serial.print("Button State: ");
+  // Serial.println(button_state);
+  // Serial.print("Allow State: ");
+  // Serial.println(change_allow);
+  // Serial.print("Reset State: ");
+  // Serial.println(reset_state);
+  
   delay(500);
 }
