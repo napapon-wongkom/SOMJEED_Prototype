@@ -1,2 +1,2 @@
-# SOMJEED
-Didn't change pin yet.
+# SOMJEED(Terminated)
+Only use for ESP32 only
